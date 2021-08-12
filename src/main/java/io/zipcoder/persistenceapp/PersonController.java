@@ -10,7 +10,7 @@ import javax.xml.ws.http.HTTPException;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class PersonController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/people/{id}")
-    public ResponseEntity<Person> update(@RequestBody Person newPersonData, Long id) {
+    public ResponseEntity<Person> update(@RequestBody Person newPersonData, @PathVariable Long id) {
         try {
             return new ResponseEntity<>(service.update(id, newPersonData), HttpStatus.OK);
         }
@@ -32,12 +32,12 @@ public class PersonController {
     }
 
     @GetMapping(value = "/people/{id}")
-    public ResponseEntity<Person> findById(Long id) {
+    public ResponseEntity<Person> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/people/{id}")
-    public ResponseEntity<Person> deleteById(Long id) {
+    public ResponseEntity<Person> deleteById(@PathVariable Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
@@ -47,12 +47,12 @@ public class PersonController {
     }
 
     @GetMapping(value = "/people/reverselookup/{mobileNumber}")
-    public ResponseEntity<List<Person>> findAllByMobileNumber(String mobileNumber) {
+    public ResponseEntity<List<Person>> findAllByMobileNumber(@PathVariable String mobileNumber) {
         return new ResponseEntity<>(service.findAllByMobileNumber(mobileNumber), HttpStatus.OK);
     }
 
     @GetMapping(value = "/people/surname/{lastName}")
-    public ResponseEntity<List<Person>> findAllBySurname(String lastName) {
+    public ResponseEntity<List<Person>> findAllBySurname(@PathVariable String lastName) {
         return new ResponseEntity<>(service.findAllByLastName(lastName), HttpStatus.OK);
     }
 
