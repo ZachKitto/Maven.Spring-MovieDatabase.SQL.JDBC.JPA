@@ -1,20 +1,39 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.person;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String firstName;
     private String lastName;
     private String mobile;
-    private LocalDate birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String birthday;
     private long homeId;
 
     public Person() {
     }
 
-    public Person(long id, String firstName, String lastName, String mobile, LocalDate birthday, long homeId) {
+    public Person(String firstName, String lastName, String mobile, String birthday, long homeId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobile = mobile;
+        this.birthday = birthday;
+        this.homeId = homeId;
+    }
+
+    public Person(long id, String firstName, String lastName, String mobile, String birthday, long homeId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -55,11 +74,11 @@ public class Person {
         this.mobile = mobile;
     }
 
-    public LocalDate getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

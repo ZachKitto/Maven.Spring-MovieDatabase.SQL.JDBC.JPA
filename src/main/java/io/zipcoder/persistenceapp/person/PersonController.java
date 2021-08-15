@@ -1,9 +1,8 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.http.HTTPException;
@@ -14,7 +13,7 @@ import java.util.Map;
 public class PersonController {
 
     @Autowired
-    PersonService service;
+    private PersonService service;
 
     @PostMapping(value = "/people")
     public ResponseEntity<Person> create(@RequestBody Person person) {
@@ -22,7 +21,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/people/{id}")
-    public ResponseEntity<Person> update(@RequestBody Person newPersonData, @PathVariable Long id) {
+    public ResponseEntity<Person> update(@PathVariable Long id, @RequestBody Person newPersonData) {
         try {
             return new ResponseEntity<>(service.update(id, newPersonData), HttpStatus.OK);
         }

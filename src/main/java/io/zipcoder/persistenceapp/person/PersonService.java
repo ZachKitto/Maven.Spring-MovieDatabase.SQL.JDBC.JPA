@@ -1,5 +1,7 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.person;
 
+import io.zipcoder.persistenceapp.person.Person;
+import io.zipcoder.persistenceapp.person.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     @Autowired
-    PersonRepository repository;
+    private PersonRepository repository;
 
     public Person create(Person newPerson) {
         return repository.save(newPerson);
@@ -26,7 +28,7 @@ public class PersonService {
         currentPerson.setMobile(newPersonData.getMobile());
         currentPerson.setBirthday(newPersonData.getBirthday());
         currentPerson.setHomeId(newPersonData.getHomeId());
-        return currentPerson;
+        return repository.save(currentPerson);
     }
 
     public Person findById(Long id) {
@@ -97,7 +99,7 @@ public class PersonService {
                 .stream()
                 .forEach(person -> {
                     String firstName = person.getFirstName();
-                    if (map.containsKey(firstName)) {
+                    if (!map.containsKey(firstName)) {
                         map.put(firstName, 1);
                     }
                     else {
@@ -107,5 +109,11 @@ public class PersonService {
                     }
                 });
         return map;
+    }
+
+    public Person addToHome(Long id, Long homeId) {
+        Person personWithNewHome = findById(id);
+        personWithNewHome.setHomeId(homeId);
+        return personWithNewHome;
     }
 }

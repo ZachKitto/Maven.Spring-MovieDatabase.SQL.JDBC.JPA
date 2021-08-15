@@ -59,3 +59,36 @@ GROUP BY rating
 
 DELETE FROM movies
 WHERE rating LIKE 'R';
+
+
+SELECT h.address, h.homenumber
+FROM home AS h
+JOIN person AS p
+    ON p.home_id = h.id
+GROUP BY h.address
+    HAVING COUNT(*) > 1;
+
+
+SELECT p.first_name, p.last_name, h.address
+FROM person AS p
+JOIN home AS h
+    ON p.home_id = h.id
+WHERE h.address LIKE '11 Essex Dr.Farmingdale, NY 11735';
+
+
+UPDATE person
+    SET home_id = 2
+WHERE last_name LIKE 'Kitto';
+
+
+UPDATE home
+    SET homenumber = '111-1111'
+WHERE address LIKE '11 Essex Dr.Farmingdale, NY 11735';
+
+
+SELECT p.first_name, p.last_name, h.homenumber
+FROM person AS p
+JOIN home AS h
+    ON p.home_id = h.id
+WHERE p.first_name LIKE 'John'
+    AND p.last_name LIKE 'Smith';
