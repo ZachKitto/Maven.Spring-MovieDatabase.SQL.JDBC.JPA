@@ -1,8 +1,7 @@
 package io.zipcoder.persistenceapp.home;
 
 import io.zipcoder.persistenceapp.person.Person;
-import io.zipcoder.persistenceapp.person.PersonRepository;
-import io.zipcoder.persistenceapp.person.PersonService;
+import io.zipcoder.persistenceapp.person.JpaPersonServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ public class HomeService {
     HomeRepository repository;
 
     @Autowired
-    PersonService personService;
+    JpaPersonServiceImplementation personService;
 
     public Home create(Home home) {
         return repository.save(home);
